@@ -23,23 +23,15 @@ Client (Postman / React)  →  Spring Boot API  →  MySQL
 All reads and writes go through the API. Nothing talks to the database directly.
 
 Data Model
-Donor
-Field	Type	Notes
-id	Long	Auto-generated
-donorName	String	
-bloodType	String	A+, A-, B+, B-, AB+, AB-, O+, O-
-area	String	e.g. Kukatpally
-phoneNum	String	
-donorEmail	String	Optional
-lastDonate	LocalDate	null means never donated
-available	boolean	Default true
+
+The donor entity contains an auto-generated `donorId`, required `donorName`, `bloodType`, `phoneNum`, `area`, `mandal`, and `district`, plus optional `donorEmail` and `lastDonate` strings.
 API
 
 Base URL: http://localhost:8080
 
 Register a donor
 
-POST /donors
+POST /donor/register
 
 Request body:
 
@@ -48,11 +40,13 @@ json
   "donorName": "Test Donor",
   "bloodType": "O+",
   "area": "Kukatpally",
+  "mandal": "Kukatpally",
+  "district": "Hyderabad",
   "phoneNum": "9999999999",
   "lastDonate": "2026-08-31"
 }
 
-Returns the saved donor with its generated id.
+Returns HTTP 202 when the donor is saved.
 
 Getting Started
 
@@ -64,16 +58,17 @@ git clone <your-repo-url>
 cd BloodLink
 2. Create the database
 sql
-CREATE DATABASE raktmitra;
+CREATE DATABASE bloodlink;
 3. Configure the database
 
-Edit src/main/resources/application.properties:
+Set database credentials in PowerShell before starting the app:
 
-properties
-spring.datasource.url=jdbc:mysql://localhost:3306/raktmitra <br/>
-spring.datasource.username=YOUR_USERNAME<br/>
-spring.datasource.password=YOUR_PASSWORD<br/>
-spring.jpa.hibernate.ddl-auto=update<br/>
+```powershell
+$env:DB_USERNAME = "YOUR_USERNAME"
+$env:DB_PASSWORD = "YOUR_PASSWORD"
+```
+
+The app connects to `jdbc:mysql://localhost:3306/bloodlink`; create that database first.
 4. Run the app
 bash
 mvn spring-boot:run
@@ -82,7 +77,7 @@ The API starts on http://localhost:8080 and the donor table is created automatic
 
 5. Try it
 
-Send a POST /donors request from Postman and check that the row appears in MySQL.
+Send a POST /donor/register request from Postman and check that the row appears in MySQL.
 
 Roadmap
  Search donors by blood group and area
