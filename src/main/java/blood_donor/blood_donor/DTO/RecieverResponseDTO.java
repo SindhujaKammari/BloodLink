@@ -23,6 +23,4 @@ public class RecieverResponseDTO {
 
     @NotBlank(message = "Hospital name is required")
     private String hospitalName;
-
-   
 }

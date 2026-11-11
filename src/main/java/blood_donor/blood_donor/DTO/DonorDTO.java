@@ -26,4 +26,5 @@ public class DonorDTO {
     private String donorDistrict;
     private String donorEmail;
     private LocalDate lastDonate;
+    private Integer unitsDonated;
 }

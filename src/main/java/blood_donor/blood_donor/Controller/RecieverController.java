@@ -28,7 +28,7 @@ public class RecieverController {
     @GetMapping("/checkReciever")
     public String justCheck(){ return "Works Fine!!";}
 
-    
+
     @PostMapping("/register/reciever")
     public ResponseEntity<?> registerReciever(@RequestBody RecieverDTO newRecieverDto ){
         if(newRecieverDto == null){
@@ -45,5 +45,6 @@ public class RecieverController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong Id!! Please check the Id properly.");
     }
+    
 }
 
