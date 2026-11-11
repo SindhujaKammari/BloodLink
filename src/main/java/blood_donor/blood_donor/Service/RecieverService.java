@@ -56,7 +56,7 @@ public class RecieverService {
 
     public List<DonorResponse> searchDonors(String bloodType,String location , String place){
         
-        List<DonorResponse> matchedDonors = DonorResponseRepo.findByBloodTypeIgnoreCase(bloodType);
+        List<DonorResponse> matchedDonors = donorResponseRepo.findByBloodTypeIgnoreCase(bloodType);
 
         if(location.equalsIgnoreCase("area") || location.equalsIgnoreCase("mandal") || location.equalsIgnoreCase("district") || location.equalsIgnoreCase("all")){
             if(location.equalsIgnoreCase("area")){
@@ -101,25 +101,4 @@ public class RecieverService {
         }
         return null;
     }
-
-
-                                                        newDonorResponse.setResponseDonorId(d.getDonorId());
-                                                        newDonorResponse.setBloodType(d.getBloodType());
-                                                        newDonorResponse.setDistrict(d.getDonorDistrict());
-                                                        newDonorResponse.setMandal(d.getDonorMandal());
-                                                        newDonorResponse.setArea(d.getDonorArea());
-                                                        return newDonorResponse;
-                                                    } )
-                                                    .toList();
-                return donorId;
-            }
-            else{
-                throw new RuntimeException("No data found for this bloodGroup");
-            }
-        }
-        return null;
-    }
-
-
-
 }
