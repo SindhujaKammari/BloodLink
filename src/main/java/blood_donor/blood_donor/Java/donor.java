@@ -17,10 +17,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class donor {
+public class Donor {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long donorId ; 
+    private Long donorId;
     private String donorName;
     private String bloodType;
     private String phoneNum; 

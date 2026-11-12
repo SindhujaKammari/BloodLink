@@ -2,6 +2,8 @@ package blood_donor.blood_donor.DTO;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +12,7 @@ import lombok.Setter;
 
 @Getter 
 @Setter @NoArgsConstructor @AllArgsConstructor 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DonorDTO {
     
     @NotBlank(message = "What should we call u if its empty")

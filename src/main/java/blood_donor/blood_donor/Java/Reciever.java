@@ -13,7 +13,7 @@ import lombok.Setter;
 @Entity 
 public class Reciever {
     @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private Long recieverId;
     
     private String recieverName;
@@ -24,3 +24,4 @@ public class Reciever {
     private String RecieverArea;
     private Integer unitRequired;
 }
+ 
