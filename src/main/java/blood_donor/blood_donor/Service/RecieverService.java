@@ -10,7 +10,6 @@ import org.modelmapper.ModelMapper;
 import blood_donor.blood_donor.DTO.DonorDTO;
 import blood_donor.blood_donor.DTO.RecieverDTO;
 import blood_donor.blood_donor.Java.Reciever;
-import blood_donor.blood_donor.Java.Donor;
 import blood_donor.blood_donor.Repos.DonorRepo;
 import blood_donor.blood_donor.Repos.RecieverRepo;
 

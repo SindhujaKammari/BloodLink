@@ -1,5 +1,7 @@
 package blood_donor.blood_donor.DTO;
 
+import java.util.UUID;
+
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,7 +12,7 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor 
 public class RecieverDTO {
-    private Long recieverId;
+    private UUID recieverId;
 
     @NotBlank(message = "Receiver name is required")
     private String recieverName;

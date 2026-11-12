@@ -1,5 +1,7 @@
 package blood_donor.blood_donor.Controller;
 
+import java.util.UUID;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,7 +39,7 @@ public class DonorController {
     }
 
     @PostMapping("/modify/{donor_id}")
-    public ResponseEntity<?> modifyDonor(@PathVariable Long donor_id , @RequestBody Donor donor){
+    public ResponseEntity<?> modifyDonor(@PathVariable UUID donor_id , @RequestBody Donor donor){
         Donor particularDonor = donorRepo.findById(donor_id).orElseThrow(()-> new RuntimeException("No ID found"));
         if(donor == null || particularDonor == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid request. Donor ID mismatch.");

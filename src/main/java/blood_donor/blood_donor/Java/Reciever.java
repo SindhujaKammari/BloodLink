@@ -1,5 +1,7 @@
 package blood_donor.blood_donor.Java;
 
+import java.util.UUID;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +16,7 @@ import lombok.Setter;
 public class Reciever {
     @Id 
     @GeneratedValue(strategy = GenerationType.UUID)
-    private Long recieverId;
+    private UUID recieverId;
     
     private String recieverName;
     private String bloodType;

@@ -1,5 +1,6 @@
 package blood_donor.blood_donor.Controller;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,17 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import blood_donor.blood_donor.DTO.RecieverDTO;
-import blood_donor.blood_donor.Repos.RecieverRepo;
 import blood_donor.blood_donor.Service.RecieverService;
 
 @RestController 
 public class RecieverController {
     private final RecieverService recieverService;
-    private final RecieverRepo recieverRepo;
 
-    public RecieverController(RecieverService recieverService , RecieverRepo recieverRepo){
+    public RecieverController(RecieverService recieverService){
         this.recieverService = recieverService;
-        this.recieverRepo = recieverRepo;
     }
 
 
@@ -36,13 +34,14 @@ public class RecieverController {
         return ResponseEntity.ok(recieverService.registerReciever(newRecieverDto));
     }
 
-    @PostMapping("/search/donors/{recieverId}/{bloodType}")
-    public ResponseEntity<?> searchDonorForReciever(@PathVariable Long recieverId , @RequestParam String location , @RequestParam(required = false) String place, @PathVariable String bloodType){
-        boolean verify = recieverRepo.existsById(recieverId);
-        if(verify){
+    @PostMapping("/search/donors/{bloodType}")
+    public ResponseEntity<?> searchDonorForReciever( @RequestParam String location , @RequestParam(required = false) String place, @PathVariable String bloodType){
+        boolean validLocation = location != null && !location.isBlank();
+        boolean validPlace = place == null || !place.isBlank();
+        if(validLocation && validPlace){
             return ResponseEntity.ok(recieverService.searchDonors(bloodType, location, place));
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong Id!! Please check the Id properly.");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Location and place must not be blank.");
     }
     
 }

@@ -2,6 +2,7 @@ package blood_donor.blood_donor.Java;
 
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,14 +20,14 @@ import lombok.Setter;
 @Entity
 public class Donor {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long donorId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID donorId;
     private String donorName;
     private String bloodType;
     private String phoneNum; 
     private String donorArea;
     private String donorMandal;
     private String donorDistrict;
-    private String donorEmail;
     private LocalDate lastDonate;
+
 }
