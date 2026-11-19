@@ -2,6 +2,7 @@ package blood_donor.blood_donor.Controller;
 
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +35,7 @@ public class RecieverController {
         return ResponseEntity.ok(recieverService.registerReciever(newRecieverDto));
     }
 
-    @PostMapping("/search/donors/{bloodType}")
+    @GetMapping("/search/donors/{bloodType}")
     public ResponseEntity<?> searchDonorForReciever( @RequestParam String location , @RequestParam(required = false) String place, @PathVariable String bloodType){
         boolean validLocation = location != null && !location.isBlank();
         boolean validPlace = place == null || !place.isBlank();
@@ -43,6 +44,14 @@ public class RecieverController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Location and place must not be blank.");
     }
-    
+
+    @GetMapping("/search/donors/{bloodType}/valid")
+    public ResponseEntity<?> searchValidDonors(@PathVariable String bloodType){
+        boolean verify = bloodType.isEmpty();
+        if(verify){
+            return ResponseEntity.ok(recieverService.VerifiedDonor(bloodType));
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong Blood Type!!");
+    }    
 }
 

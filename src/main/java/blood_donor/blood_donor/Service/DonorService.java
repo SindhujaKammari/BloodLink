@@ -22,7 +22,9 @@ public class DonorService {
     }
 
     public Donor registerDonor(Donor Donor) {
-        Donor.setLastDonate(LocalDate.now());
+        if (Donor.getLastDonate() == null) {
+            Donor.setLastDonate(LocalDate.now());
+        }
         return donorRepo.save(Donor);
     }
 

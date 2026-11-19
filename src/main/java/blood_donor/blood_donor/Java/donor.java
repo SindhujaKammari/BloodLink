@@ -4,6 +4,8 @@ package blood_donor.blood_donor.Java;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Donor {
+public class Donor{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID donorId;
@@ -28,6 +30,7 @@ public class Donor {
     private String donorArea;
     private String donorMandal;
     private String donorDistrict;
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate lastDonate;
 
 }

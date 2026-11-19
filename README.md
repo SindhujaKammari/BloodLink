@@ -43,10 +43,10 @@ json
   "mandal": "Kukatpally",
   "district": "Hyderabad",
   "phoneNum": "9999999999",
-  "lastDonate": "2026-08-31"
+  "lastDonate": "31-08-2026"
 }
 
-Returns HTTP 202 when the donor is saved.
+Enter `lastDonate` in `dd-MM-yyyy` format. If omitted, it defaults to today's date. Donors are included in search only when their last donation was at least three months ago. Returns HTTP 202 when the donor is saved.
 
 Getting Started
 

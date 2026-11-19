@@ -1,14 +1,15 @@
 package blood_donor.blood_donor.Service;
 
-import org.springframework.stereotype.Service;
-
+import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 
 import org.modelmapper.ModelMapper;
 
 import blood_donor.blood_donor.DTO.DonorDTO;
 import blood_donor.blood_donor.DTO.RecieverDTO;
+import blood_donor.blood_donor.Java.Donor;
 import blood_donor.blood_donor.Java.Reciever;
 import blood_donor.blood_donor.Repos.DonorRepo;
 import blood_donor.blood_donor.Repos.RecieverRepo;
@@ -39,11 +40,18 @@ public class RecieverService {
         return savedReciever;
     }
 
-    public List<DonorDTO> searchDonors(String bloodType,String location , String place){
-        
+    public List<DonorDTO> matchedDonors(String bloodType){
         List<DonorDTO> matchedDonors = donorRepo.findByBloodTypeIgnoreCase(bloodType).stream()
+                                                .filter(donor -> donor.getLastDonate() != null
+                                                        && !donor.getLastDonate().isAfter(LocalDate.now().minusMonths(3)))
                                                 .map(donor -> modelMapper.map(donor, DonorDTO.class))
                                                 .toList();
+        return matchedDonors ; 
+    }
+
+    public List<DonorDTO> searchDonors(String bloodType,String location , String place){
+        
+        List<DonorDTO> matchedDonors = matchedDonors(bloodType);
 
         if(location.equalsIgnoreCase("area") || location.equalsIgnoreCase("mandal") || location.equalsIgnoreCase("district") || location.equalsIgnoreCase("all")){
             if(location.equalsIgnoreCase("area")){
@@ -88,6 +96,14 @@ public class RecieverService {
             else{
                 throw new RuntimeException("No data found for this bloodGroup");
             }
+        }
+        return null;
+    }
+
+    public List<DonorDTO> VerifiedDonor(String bloodType){
+        if(!bloodType.isBlank()){
+            List<DonorDTO> verifiedDonor = matchedDonors(bloodType);
+            return verifiedDonor;
         }
         return null;
     }
