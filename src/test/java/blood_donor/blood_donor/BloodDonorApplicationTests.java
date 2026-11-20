@@ -3,6 +3,7 @@ package blood_donor.blood_donor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -95,7 +96,7 @@ class BloodDonorApplicationTests {
 		donorRepo.save(createDonor("Other Area", "O-", "Gachibowli", LocalDate.now().minusMonths(6)));
 		donorRepo.save(createDonor("Other Blood Type", "A+", "Kukatpally", LocalDate.now().minusMonths(6)));
 
-		mockMvc.perform(post("/search/donors/O-")
+		mockMvc.perform(get("/search/donors/O-")
 				.param("location", "area")
 				.param("place", "Kukatpally"))
 				.andExpect(status().isOk())
@@ -107,7 +108,7 @@ class BloodDonorApplicationTests {
 	void donorSearchDoesNotExposePhoneNumber() throws Exception {
 		donorRepo.save(createDonor("Private Donor", "O-", "Kukatpally", LocalDate.now().minusMonths(6)));
 
-		mockMvc.perform(post("/search/donors/O-")
+		mockMvc.perform(get("/search/donors/O-")
 				.param("location", "area")
 				.param("place", "Kukatpally"))
 				.andExpect(status().isOk())
@@ -121,7 +122,7 @@ class BloodDonorApplicationTests {
 		donorRepo.save(createDonor("Boundary Donor", "O-", "Kukatpally", today.minusMonths(3)));
 		donorRepo.save(createDonor("Recent Donor", "O-", "Kukatpally", today.minusMonths(2)));
 
-		mockMvc.perform(post("/search/donors/O-")
+		mockMvc.perform(get("/search/donors/O-")
 				.param("location", "area")
 				.param("place", "Kukatpally"))
 				.andExpect(status().isOk())
@@ -131,7 +132,7 @@ class BloodDonorApplicationTests {
 
 	@Test
 	void donorSearchReturnsEmptyListWhenThereAreNoMatches() throws Exception {
-		mockMvc.perform(post("/search/donors/O-")
+		mockMvc.perform(get("/search/donors/O-")
 				.param("location", "area")
 				.param("place", "Kukatpally"))
 				.andExpect(status().isOk())

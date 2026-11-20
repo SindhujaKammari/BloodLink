@@ -40,61 +40,63 @@ public class RecieverService {
         return savedReciever;
     }
 
-    public List<DonorDTO> matchedDonors(String bloodType){
-        List<DonorDTO> matchedDonors = donorRepo.findByBloodTypeIgnoreCase(bloodType).stream()
-                                                .filter(donor -> donor.getLastDonate() != null
-                                                        && !donor.getLastDonate().isAfter(LocalDate.now().minusMonths(3)))
-                                                .map(donor -> modelMapper.map(donor, DonorDTO.class))
-                                                .toList();
-        return matchedDonors ; 
+    public List<Donor> matchedDonors(String bloodType){
+        List<Donor> matchedDonors = donorRepo.findByBloodTypeIgnoreCase(bloodType).stream()
+                                            .filter(d -> d.getLastDonate() != null
+                                                    && !d.getLastDonate().isAfter(LocalDate.now().minusMonths(3)))
+                                            .toList();
+        return matchedDonors;
     }
+   
 
     public List<DonorDTO> searchDonors(String bloodType,String location , String place){
         
-        List<DonorDTO> matchedDonors = matchedDonors(bloodType);
+        List<Donor> matchedDonors = matchedDonors(bloodType);
 
         if(location.equalsIgnoreCase("area") || location.equalsIgnoreCase("mandal") || location.equalsIgnoreCase("district") || location.equalsIgnoreCase("all")){
-            if(location.equalsIgnoreCase("area")){
+            if(location.equalsIgnoreCase("area") && !place.isBlank()){
                 List<DonorDTO> donorId = matchedDonors.stream()
                                                     .filter(d ->d.getDonorArea()!=null && d.getDonorArea().equalsIgnoreCase(place) )
                                                     .map(donorData ->{
                                                         DonorDTO donor = new DonorDTO();
                                                         donor.setDonorName(donorData.getDonorName());
                                                         donor.setDonorArea(donorData.getDonorArea());
-                                                        donor.setPhoneNum(donorData.getPhoneNum());
+
                                                         return  donor;
                                                     }).toList();
                 return donorId;
             }
-            else if(location.equalsIgnoreCase("mandal")){
+            else if(location.equalsIgnoreCase("mandal") && !place.isBlank()){
                 List<DonorDTO> donorId = matchedDonors.stream()
                                                     .filter(d ->d.getDonorMandal().equalsIgnoreCase(place) )
                                                     .map(donorData ->{
                                                         DonorDTO donor = new DonorDTO();
                                                         donor.setDonorName(donorData.getDonorName());
                                                         donor.setDonorArea(donorData.getDonorArea());
-                                                        donor.setPhoneNum(donorData.getPhoneNum());
+
                                                         return  donor;
                                                     }).toList();
                 return donorId;
             }
-            else if(location.equalsIgnoreCase("district")){
+            else if(location.equalsIgnoreCase("district") && !place.isBlank()){
                 List<DonorDTO> donorId = matchedDonors.stream()
                                                     .filter(d ->d.getDonorDistrict().equalsIgnoreCase(place) )
                                                     .map(donorData ->{
                                                     DonorDTO donor = new DonorDTO();
                                                     donor.setDonorName(donorData.getDonorName());
-                                                    donor.setDonorArea(donorData.getDonorArea());
-                                                    donor.setPhoneNum(donorData.getPhoneNum());
+                                                    donor.setDonorDistrict(donorData.getDonorDistrict());
                                                     return  donor;
                                                 }).toList();
                 return donorId;
             }
             else if(location.equalsIgnoreCase("all")){
-                return matchedDonors;
+                List<DonorDTO> allDonors = matchedDonors.stream()
+                .map(d-> modelMapper.map(d, DonorDTO.class)).toList();
+                
+                return allDonors;
             }
             else{
-                throw new RuntimeException("No data found for this bloodGroup");
+                throw new RuntimeException("Mention Place for accurate results");
             }
         }
         return null;
@@ -102,8 +104,11 @@ public class RecieverService {
 
     public List<DonorDTO> VerifiedDonor(String bloodType){
         if(!bloodType.isBlank()){
-            List<DonorDTO> verifiedDonor = matchedDonors(bloodType);
-            return verifiedDonor;
+            List<Donor> valid =  matchedDonors(bloodType);
+            List<DonorDTO> verified = valid.stream()
+                    .map(donor -> modelMapper.map(donor, DonorDTO.class))
+                    .toList();
+            return verified;
         }
         return null;
     }
