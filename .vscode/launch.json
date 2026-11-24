@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Launch BloodLink Backend",
+      "request": "launch",
+      "mainClass": "blood_donor.blood_donor.BloodDonorApplication",
+      "projectName": "blood_donor"
+    }
+  ]
+}

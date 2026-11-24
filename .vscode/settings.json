@@ -1,0 +1,20 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    "editor.quickSuggestions": {
+        "other": "on",
+        "comments": "off",
+        "strings": "on"
+    },
+    "editor.suggestOnTriggerCharacters": true,
+    "editor.acceptSuggestionOnEnter": "on",
+    "editor.tabCompletion": "on",
+    "javascript.suggest.autoImports": true,
+    "javascript.suggest.completeFunctionCalls": true,
+    "javascript.suggest.names": true,
+    "javascript.suggest.paths": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "javascript.validate.enable": true,
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    }
+}
