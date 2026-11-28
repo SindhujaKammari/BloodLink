@@ -38,7 +38,7 @@ public class RecieverController {
     } 
 
     @GetMapping("/search/donors/{bloodType}")
-    public ResponseEntity<?> searchDonorForReciever( @RequestParam(required = true) String location , @RequestParam(required = false) String place, @PathVariable String bloodType){
+    public ResponseEntity<?> searchDonorForReciever(@Valid @RequestParam(required = true) String location , @RequestParam(required = false) String place, @Valid @PathVariable String bloodType){
         boolean validLocation = location != null && !location.isBlank() && (location.equalsIgnoreCase("area") || location.equalsIgnoreCase("mandal") || location.equalsIgnoreCase("district"));
         boolean validPlace = place != null && !place.isBlank();
 
@@ -52,7 +52,7 @@ public class RecieverController {
     } 
 
     @GetMapping("/search/donors/{bloodType}/valid")
-    public ResponseEntity<?> searchValidDonors(@PathVariable String bloodType){
+    public ResponseEntity<?> searchValidDonors(@Valid @PathVariable String bloodType){
         boolean verify = bloodType.isEmpty();
         if(!verify){
             return ResponseEntity.ok(recieverService.VerifiedDonor(bloodType));

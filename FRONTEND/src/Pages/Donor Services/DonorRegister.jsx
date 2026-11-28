@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { DonorRegister as registerDonor } from "../../API/bloodlinkAPI";
+import "../Styles.css";
 
 function ModifyDate(lastDonate){
     if(!lastDonate) return "";
@@ -51,38 +52,45 @@ export default function DonorRegister(){
         }
     }
 
-    return(<>
+    return(<div id="container">
         <form onSubmit={handleSubmit} >
-            <label htmlFor="donorName">
+            <label htmlFor="donorName">Enter Donor's Name
                 <input id="donorName" type="text" placeholder="Enter DonorName" name="donorName" value={formData.donorName} onChange={handleChanges} required/>
             </label>
+            <br/>
 
-            <label htmlFor="bloodType">
+            <label htmlFor="bloodType"> Donor's Blood Group
                 <input id="bloodType" type="text" placeholder="Enter bloodType" name="bloodType" value={formData.bloodType} onChange={handleChanges} required/>
             </label>
+            <br/>
 
-            <label htmlFor="phoneNum">
+            <label htmlFor="phoneNum"> Contact (phone Num)
                 <input id="phoneNum" type="text" placeholder="Enter phone number" name="phoneNum" value={formData.phoneNum} onChange={handleChanges} required/>
             </label>
+            <br/>
 
-            <label htmlFor="donorArea">
+            <label htmlFor="donorArea"> Enter Area
                 <input id="donorArea" type="text" placeholder="Enter DonorArea" name="donorArea" value={formData.donorArea} onChange={handleChanges}/>
             </label>
+            <br/>
 
-            <label htmlFor="donorMandal">
+            <label htmlFor="donorMandal"> Enter Mandal
                 <input id="donorMandal" type="text" placeholder="Enter DonorMandal" name="donorMandal" value={formData.donorMandal} onChange={handleChanges}/>
             </label>
+            <br/>
 
-            <label htmlFor="donorDistrict">
+            <label htmlFor="donorDistrict"> Enter District
                 <input id="donorDistrict" type="text" placeholder="Enter DonorDistrict" name="donorDistrict" value={formData.donorDistrict} onChange={handleChanges}/>
             </label>
+            <br/>
 
-            <label htmlFor="lastDonate">
+            <label htmlFor="lastDonate"> When did you donate your blood ? or is it your first time
                 <input id="lastDonate" type="date" name="lastDonate" value={formData.lastDonate} onChange={handleChanges}/>
             </label>
+            <br/>
 
             <button type="submit">Register Donor</button>
         </form>
         {message && <p role="status">{message}</p>}
-    </>);
+    </div>);
 }

@@ -33,7 +33,7 @@ export default function SearchDonors(){
         }
     }
 
-    return(<>
+    return(<div id="container">
         <form onSubmit={handleSubmit}>
             <label htmlFor="bloodType"> Blood Type
                 <select id="bloodType" name="bloodType" value={formData.bloodType} onChange={handleChange} required>
@@ -48,6 +48,7 @@ export default function SearchDonors(){
                     <option value="AB-">AB-</option>
                 </select>
             </label>
+            <br/>
 
             <label htmlFor="location"> Location scope
                 <select id="location" name="location" value={formData.location} onChange={handleChange} required>
@@ -58,6 +59,7 @@ export default function SearchDonors(){
                     <option value="district">District</option>
                 </select>
             </label>
+            <br/>
 
             <label htmlFor="place">
                 Place
@@ -72,6 +74,7 @@ export default function SearchDonors(){
                     disabled={formData.location === "all"}
                 />
             </label>
+            <br/>
 
             <button type="submit">Submit</button>
         </form>
@@ -89,5 +92,5 @@ export default function SearchDonors(){
         ) : (
             hasSearched && !errorMessage && <p>No eligible donors found.</p>
         )}
-    </>)
+    </div>)
 }

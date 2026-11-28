@@ -1,0 +1,31 @@
+*{
+    margin: 0px;
+    padding:0px;
+    font-family: "Asul";
+}
+
+
+
+#container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form{
+    height:500px;
+    width: 400px;
+    border:2px solid red;
+}
+
+input{
+    margin: 20px;
+}
+
+button{
+    background-color: rgba(232, 19, 19, 0.944);
+    border:transparent;
+    height: 30px;
+    width:120px;
+    font-size: 15px;
+}
