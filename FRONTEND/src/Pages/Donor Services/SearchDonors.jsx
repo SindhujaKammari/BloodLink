@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ValidDonors } from "../../API/bloodlinkAPI";
-
+import "../Styles.css"
 export default function SearchDonors(){
     let [ formData , setFormData] = useState({
         bloodType:"",
@@ -35,7 +35,7 @@ export default function SearchDonors(){
 
     return(<div id="container">
         <form onSubmit={handleSubmit}>
-            <label htmlFor="bloodType"> Blood Type
+            <label htmlFor="bloodType"> Blood Type <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                 <select id="bloodType" name="bloodType" value={formData.bloodType} onChange={handleChange} required>
                     <option value="">Select blood type</option>
                     <option value="O+">O+</option>
@@ -50,7 +50,7 @@ export default function SearchDonors(){
             </label>
             <br/>
 
-            <label htmlFor="location"> Location scope
+            <label htmlFor="location"> Location scope <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                 <select id="location" name="location" value={formData.location} onChange={handleChange} required>
                     <option value="">Select location scope</option>
                     <option value="all">All locations</option>
@@ -62,7 +62,7 @@ export default function SearchDonors(){
             <br/>
 
             <label htmlFor="place">
-                Place
+                Place <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                 <input
                     id="place"
                     type="text"

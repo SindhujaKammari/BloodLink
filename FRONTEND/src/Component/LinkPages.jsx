@@ -3,7 +3,7 @@ import ModifyDonor from "../Pages/Donor Services/ModifyDonor";
 import { Navigate, Route, Routes } from "react-router-dom";
 import SearchDonors from "../Pages/Donor Services/SearchDonors";
 import RecieverRegister from "../Pages/Reciever/RecieverRegister";
-
+import "./Navbar.css"
 export default function DonorPage(){
     return(
         <Routes>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { DonorUpdate, getDonor } from "../../API/bloodlinkAPI";
-
+import "../Styles.css";
 
 export default function ModifyDonor() {
     let [donorId , setDonorId] = useState("");
@@ -61,50 +61,52 @@ export default function ModifyDonor() {
     return(
         <div id="container">
             <form onSubmit={handleSearch}>
-                <input type="text" placeholder="Enter Donor Unique Id" value={donorId} name="donorId" onChange={event => setDonorId(event.target.value)} required/>
+                <label htmlFor="donorId">Donor Unique ID <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
+                    <input id="donorId" type="text" placeholder="Enter Donor Unique Id" value={donorId} name="donorId" onChange={event => setDonorId(event.target.value)} required/>
+                </label>
                 <br/>
                 <button type="submit">Search</button>
             </form>
 
             {visibility && <form onSubmit={handleSubmit}>
-                <label htmlFor="donorName">
+                <label htmlFor="donorName">Donor Name <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                     <input id="donorName" type="text" placeholder="Enter DonorName" name="donorName" value={formData.donorName} onChange={handleChanges} required/>
                 </label>
                 <br/>
 
-                <label htmlFor="bloodType">
+                <label htmlFor="bloodType">Blood Type <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                     <input id="bloodType" type="text" placeholder="Enter bloodType" name="bloodType" value={formData.bloodType} onChange={handleChanges} required/>
                 </label>
                 <br/>
 
-                <label htmlFor="phoneNum">
+                <label htmlFor="phoneNum">Phone Number <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                     <input id="phoneNum" type="text" placeholder="Enter phone number" name="phoneNum" value={formData.phoneNum} onChange={handleChanges} required/>
                 </label>
                 <br/>
 
-                <label htmlFor="donorArea">
+                <label htmlFor="donorArea">Area <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                     <input id="donorArea" type="text" placeholder="Enter DonorArea" name="donorArea" value={formData.donorArea} onChange={handleChanges}/>
                 </label>
                 <br/>
 
-                <label htmlFor="donorMandal">
+                <label htmlFor="donorMandal">Mandal <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                     <input id="donorMandal" type="text" placeholder="Enter DonorMandal" name="donorMandal" value={formData.donorMandal} onChange={handleChanges}/>
                 </label>
                 <br/>
 
-                <label htmlFor="donorDistrict">
+                <label htmlFor="donorDistrict">District <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                     <input id="donorDistrict" type="text" placeholder="Enter DonorDistrict" name="donorDistrict" value={formData.donorDistrict} onChange={handleChanges}/>
                 </label>
                 <br/>
 
-                <label htmlFor="lastDonate">
+                <label htmlFor="lastDonate">Last Donation Date <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                     <input id="lastDonate" type="date" name="lastDonate" value={formData.lastDonate} onChange={handleChanges}/>
                 </label>
                 <br/>
 
                 <button type="submit">Update Donor</button>
             </form>}
-            {message && <p role="status">{message}</p>}
+            
         </div>
     )
 }

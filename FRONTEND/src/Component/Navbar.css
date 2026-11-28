@@ -1,0 +1,11 @@
+nav, Route{
+    background-color: #1F3B66;
+    width:75%;
+    color: white !important;
+}
+
+nav a {
+    background-color: inherit;
+    color:white !important;
+    text-decoration: none;
+}

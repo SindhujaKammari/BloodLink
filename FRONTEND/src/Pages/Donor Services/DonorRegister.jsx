@@ -52,45 +52,55 @@ export default function DonorRegister(){
         }
     }
 
-    return(<div id="container">
+    return(<div id="container"> 
         <form onSubmit={handleSubmit} >
-            <label htmlFor="donorName">Enter Donor's Name
+            <label htmlFor="donorName">Enter Donor's Name <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                 <input id="donorName" type="text" placeholder="Enter DonorName" name="donorName" value={formData.donorName} onChange={handleChanges} required/>
             </label>
             <br/>
 
-            <label htmlFor="bloodType"> Donor's Blood Group
-                <input id="bloodType" type="text" placeholder="Enter bloodType" name="bloodType" value={formData.bloodType} onChange={handleChanges} required/>
+            <label htmlFor="bloodType"> Blood Type <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
+                <select id="bloodType" name="bloodType" value={formData.bloodType} onChange={handleChanges} required>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                </select>
             </label>
             <br/>
 
-            <label htmlFor="phoneNum"> Contact (phone Num)
+            <label htmlFor="phoneNum"> Contact (phone Num) <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                 <input id="phoneNum" type="text" placeholder="Enter phone number" name="phoneNum" value={formData.phoneNum} onChange={handleChanges} required/>
             </label>
             <br/>
 
-            <label htmlFor="donorArea"> Enter Area
+            <label htmlFor="donorArea"> Enter Area <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                 <input id="donorArea" type="text" placeholder="Enter DonorArea" name="donorArea" value={formData.donorArea} onChange={handleChanges}/>
             </label>
             <br/>
 
-            <label htmlFor="donorMandal"> Enter Mandal
+            <label htmlFor="donorMandal"> Enter Mandal <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                 <input id="donorMandal" type="text" placeholder="Enter DonorMandal" name="donorMandal" value={formData.donorMandal} onChange={handleChanges}/>
             </label>
             <br/>
 
-            <label htmlFor="donorDistrict"> Enter District
+            <label htmlFor="donorDistrict"> Enter District <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                 <input id="donorDistrict" type="text" placeholder="Enter DonorDistrict" name="donorDistrict" value={formData.donorDistrict} onChange={handleChanges}/>
             </label>
             <br/>
 
-            <label htmlFor="lastDonate"> When did you donate your blood ? or is it your first time
+            <label htmlFor="lastDonate"> When did you donate your blood ? or is it your first time <span aria-hidden="true" style={{ color: "red", background:"inherit" }}>*</span> <br/>
                 <input id="lastDonate" type="date" name="lastDonate" value={formData.lastDonate} onChange={handleChanges}/>
             </label>
             <br/>
 
-            <button type="submit">Register Donor</button>
+            <button type="submit" id="donor-button">Register Donor</button>
+            {message && <p role="status">{message}</p>}
         </form>
-        {message && <p role="status">{message}</p>}
+        
     </div>);
 }
