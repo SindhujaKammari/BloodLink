@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { DonorUpdate , checkDonor } from "../API/bloodlinkAPI";
+import { useState } from "react";
+import { DonorUpdate, getDonor } from "../../API/bloodlinkAPI";
 
 
 export default function ModifyDonor() {
@@ -15,26 +15,57 @@ export default function ModifyDonor() {
     });
 
     const [visibility , setVisibility] = useState(false);
-    const [msg , setMsg] = useState("");
+    const [message, setMessage] = useState("");
 
-    function getDonorId(event){
-        let id = event.target.value();
-        const verify = checkDonor(id);
-        if(!verify){
-            setMessage("this donor doesnt Exist");
+    function handleChanges(event) {
+        const { name, value } = event.target;
+        setFormData(data => ({ ...data, [name]: value }));
+    }
+
+    async function handleSearch(event) {
+        event.preventDefault();
+        setMessage("");
+        try {
+            const donor = await getDonor(donorId);
+            setFormData({
+                donorName: donor.donorName || "",
+                bloodType: donor.bloodType || "",
+                phoneNum: donor.phoneNum || "",
+                donorArea: donor.donorArea || "",
+                donorMandal: donor.donorMandal || "",
+                donorDistrict: donor.donorDistrict || "",
+                lastDonate: donor.lastDonate ? donor.lastDonate.split("-").reverse().join("-") : ""
+            });
+            setVisibility(true);
+        } catch (error) {
             setVisibility(false);
+            setMessage(error.message);
         }
-        setVisibility(true);
+    }
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        setMessage("Updating...");
+        try {
+            const [year, month, date] = formData.lastDonate.split("-");
+            await DonorUpdate(donorId, {
+                ...formData,
+                lastDonate: formData.lastDonate ? `${date}-${month}-${year}` : ""
+            });
+            setMessage("Donor updated successfully.");
+        } catch (error) {
+            setMessage(error.message);
+        }
     }
 
     return(
         <>
-            <form>
-                <input type="text" placeholder="Enter Donor Unique Id" value={donorId} name="donorId" onChange={getDonorId}/>
-                <button>Search</button>
+            <form onSubmit={handleSearch}>
+                <input type="text" placeholder="Enter Donor Unique Id" value={donorId} name="donorId" onChange={event => setDonorId(event.target.value)} required/>
+                <button type="submit">Search</button>
             </form>
 
-            <form onSubmit={handleSubmit} style={{visibility: visibility? "visible" : "hidden"}}>
+            {visibility && <form onSubmit={handleSubmit}>
                 <label htmlFor="donorName">
                     <input id="donorName" type="text" placeholder="Enter DonorName" name="donorName" value={formData.donorName} onChange={handleChanges} required/>
                 </label>
@@ -63,8 +94,9 @@ export default function ModifyDonor() {
                     <input id="lastDonate" type="date" name="lastDonate" value={formData.lastDonate} onChange={handleChanges}/>
                 </label>
 
-                <button type="submit">Register Donor</button>
-            </form>
+                <button type="submit">Update Donor</button>
+            </form>}
+            {message && <p role="status">{message}</p>}
         </>
     )
 }

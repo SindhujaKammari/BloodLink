@@ -2,11 +2,9 @@ package blood_donor.blood_donor.Java;
 
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,19 +30,7 @@ public class Donor{
     private String donorArea;
     private String donorMandal;
     private String donorDistrict;
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate lastDonate;
-
-    @JsonSetter("lastDonate")
-    public void setLastDonateFromJson(String value) {
-        if (value == null || value.isBlank()) {
-            this.lastDonate = null;
-            return;
-        }
-        try {
-            this.lastDonate = LocalDate.parse(value, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        } catch (DateTimeParseException exception) {
-            this.lastDonate = LocalDate.parse(value, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        }
-    }
 
 }

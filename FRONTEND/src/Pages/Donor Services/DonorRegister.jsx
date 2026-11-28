@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DonorRegister } from "../API/bloodlinkAPI";
+import { DonorRegister as registerDonor } from "../../API/bloodlinkAPI";
 
 function ModifyDate(lastDonate){
     if(!lastDonate) return "";
@@ -20,6 +20,7 @@ export default function DonorRegister(){
 
     const [message, setMessage] = useState("");
     
+    
 
     function handleChanges(event){
         const {name , value} = event.target;
@@ -34,7 +35,7 @@ export default function DonorRegister(){
                 ...formData,
                 lastDonate: ModifyDate(formData.lastDonate)
             };
-            await DonorRegister(donorData);
+            await registerDonor(donorData);
             setMessage("Registration successful!");
             setFormData({
                 donorName: "",
@@ -51,7 +52,7 @@ export default function DonorRegister(){
     }
 
     return(<>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} >
             <label htmlFor="donorName">
                 <input id="donorName" type="text" placeholder="Enter DonorName" name="donorName" value={formData.donorName} onChange={handleChanges} required/>
             </label>

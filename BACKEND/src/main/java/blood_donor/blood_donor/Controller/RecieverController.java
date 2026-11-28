@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import blood_donor.blood_donor.DTO.RecieverDTO;
 import blood_donor.blood_donor.Service.RecieverService;
 
-@RestController 
+@RestController
+@CrossOrigin(origins = {"http://localhost:5173", "http://127.0.0.1:5173"})
 public class RecieverController {
     private final RecieverService recieverService;
 
@@ -32,10 +34,10 @@ public class RecieverController {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Try to give valid data ");
         }
         return ResponseEntity.ok(recieverService.registerReciever(newRecieverDto));
-    }
+    } 
 
     @GetMapping("/search/donors/{bloodType}")
-    public ResponseEntity<?> searchDonorForReciever( @RequestParam String location , @RequestParam(required = false) String place, @PathVariable String bloodType){
+    public ResponseEntity<?> searchDonorForReciever( @RequestParam(required = true) String location , @RequestParam(required = false) String place, @PathVariable String bloodType){
         boolean validLocation = location != null && !location.isBlank() && (location.equalsIgnoreCase("area") || location.equalsIgnoreCase("mandal") || location.equalsIgnoreCase("district"));
         boolean validPlace = place != null && !place.isBlank();
 

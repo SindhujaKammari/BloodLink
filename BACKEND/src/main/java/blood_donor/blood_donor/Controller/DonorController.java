@@ -28,10 +28,13 @@ public class DonorController {
         this.donorRepo = donorRepo;
     }
 
-    @GetMapping("/check/donor/{donor_id}")
-    public boolean CheckDonor(@PathVariable UUID donorId) {
-        if(donorId==null|| donorId.equals("")){throw new RuntimeException("Enter Proper DonorId");}
-        return donorRepo.existsById(donorId);
+    @GetMapping("/donor/{donor_id}")
+    public ResponseEntity<?> getDonor(@PathVariable("donor_id") String donorId) {
+        try {
+            return ResponseEntity.of(donorRepo.findById(parseDonorId(donorId)));
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid donor ID.");
+        }
     }
 
     @PostMapping("/donor/register")
