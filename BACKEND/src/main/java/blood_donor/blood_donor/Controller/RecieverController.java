@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import blood_donor.blood_donor.DTO.RecieverDTO;
 import blood_donor.blood_donor.Service.RecieverService;
+import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:5173", "http://127.0.0.1:5173"})
@@ -29,7 +30,7 @@ public class RecieverController {
 
 
     @PostMapping("/register/reciever")
-    public ResponseEntity<?> registerReciever(@RequestBody RecieverDTO newRecieverDto ){
+    public ResponseEntity<?> registerReciever(@Valid @RequestBody RecieverDTO newRecieverDto ){
         if(newRecieverDto == null){
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Try to give valid data ");
         }

@@ -61,17 +61,18 @@ sql
 CREATE DATABASE bloodlink;
 3. Configure the database
 
-Set database credentials in PowerShell before starting the app:
+Create `BACKEND/.env` with your local database settings:
 
-```powershell
-$env:DB_USERNAME = "YOUR_USERNAME"
-$env:DB_PASSWORD = "YOUR_PASSWORD"
+```properties
+DB_URL=jdbc:mysql://localhost:3306/bloodlink
+DB_USERNAME=YOUR_USERNAME
+DB_PASSWORD=YOUR_PASSWORD
 ```
 
-The app connects to `jdbc:mysql://localhost:3306/bloodlink`; create that database first.
-4. Run the app
+Keep this file local; it is ignored by Git. The app loads it when started from either the repository root or the `BACKEND` directory.
+4. Run the app from `BACKEND`
 bash
-mvn spring-boot:run
+.\mvnw.cmd spring-boot:run
 
 The API starts on http://localhost:8080 and the donor table is created automatically.
 
